@@ -10,14 +10,15 @@ import org.skife.jdbi.v2.DBI;
 import java.util.UUID;
 
 public class MessageHandler extends MessageHandlerBase {
-    private final BotsDAO botsDAO;
+    private final DBI jdbi;
 
     MessageHandler(DBI jdbi) {
-        this.botsDAO = jdbi.onDemand(BotsDAO.class);
+        this.jdbi = jdbi;
     }
 
     @Override
     public boolean onNewBot(NewBot newBot) {
+        BotsDAO botsDAO = jdbi.onDemand(BotsDAO.class);
         if (1 == botsDAO.insert(newBot.id))
             Logger.info("onNewBot. New subscriber, bot: %s, user: %s", newBot.id, newBot.origin.id);
 
@@ -37,6 +38,7 @@ public class MessageHandler extends MessageHandlerBase {
     @Override
     public void onBotRemoved(UUID botId, SystemMessage msg) {
         Logger.info("onBotRemoved. subscriber, bot: %s", botId);
+        BotsDAO botsDAO = jdbi.onDemand(BotsDAO.class);
         botsDAO.delete(botId);
     }
 }

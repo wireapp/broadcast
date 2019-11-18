@@ -15,9 +15,9 @@ swagger:
     - http
     - https
 
-auth: ${FDP_SERVICE_TOKEN}
+auth: ${APP_SERVICE_TOKEN}
 
-secret: ${FDP_SECRET}
+secret: ${APP_SECRET}
 
 db:
   driver: postgresql
@@ -25,6 +25,7 @@ db:
   user: postgres
   password: ${POSTGRES_PASSWORD}
   port: 5432
+  database: ${DATABASE_NAME}
 
 database:
   driverClass: org.postgresql.Driver

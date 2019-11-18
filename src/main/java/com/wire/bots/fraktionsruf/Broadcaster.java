@@ -26,14 +26,16 @@ import java.util.UUID;
 
 public class Broadcaster {
     private final ClientRepo repo;
-    private final BotsDAO botsDAO;
+    private final DBI jdbi;
 
     public Broadcaster(ClientRepo repo, DBI jdbi) {
         this.repo = repo;
-        this.botsDAO = jdbi.onDemand(BotsDAO.class);
+        this.jdbi = jdbi;
     }
 
     public int broadcast(String text) {
+        BotsDAO botsDAO = jdbi.onDemand(BotsDAO.class);
+
         int count = 0;
         for (UUID botId : botsDAO.getBots()) {
             try {
