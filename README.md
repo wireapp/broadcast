@@ -5,28 +5,19 @@ This is broadcast bot for Wire.
 
 ## Public endpoints:
 ```
-    POST    /fraktionsruf/bots
+    POST    /fraktionsruf/bots                     # must be visible to Wire BE
+    POST    /fraktionsruf/bots/{bot}/messages      # must be visible to Wire BE
+    POST    /fraktionsruf/broadcast                # must be visible to Fraktionsruf Console
+    GET     /fraktionsruf/status                   # use this endpoint as liveness probe
     GET     /fraktionsruf/bots/status
-    POST    /fraktionsruf/bots/{bot}/messages
-    POST    /fraktionsruf/broadcast
-    GET     /fraktionsruf/status
     GET     /fraktionsruf/swagger
     GET     /fraktionsruf/swagger.{type:json|yaml}
 ```
 
-## Environment variables:
-```
-LD_LIBRARY_PATH
-APP_SERVICE_TOKEN
-APP_SECRET
-POSTGRES_HOST
-POSTGRES_URL
-POSTGRES_PASSWORD
-DATABASE_NAME
-```
-
 ## Database scripts:
 ```
+CREATE DATABASE $DATABASE_NAME;
+
 CREATE TABLE Bots (
     bot_id UUID PRIMARY KEY
 );
@@ -61,6 +52,29 @@ CREATE TABLE states (
 
 ## Run command
 `java -Djava.library.path=$LD_LIBRARY_PATH server fraktionsruf.yaml`
+
+## Environment variables:
+```
+LD_LIBRARY_PATH      /opt/wire/lib
+APP_SERVICE_TOKEN    # obtained from Wire
+APP_SECRET           # your application secret - some 24 random alpha numeric chars
+POSTGRES_HOST
+POSTGRES_URL
+POSTGRES_PASSWORD
+DATABASE_NAME
+```
+
+## Example of Docker run command
+```
+sudo docker run -e APP_SERVICE_TOKEN='foo' \
+-e APP_SECRET='bar' \
+-e POSTGRES_HOST='elephant-postgresql.prod.svc.cluster.local' \
+-e POSTGRES_URL='jdbc:postgresql://elephant-postgresql.prod.svc.cluster.local:5432/fraktionsruf' \
+-e POSTGRES_PASSWORD='foobar' \
+-e DATABASE_NAME='fraktionsruf'
+-p 8080:80 \
+--name fraktionsruf_container dejankovacevic/fraktionsruf:latest
+```
 
 ## How to broadcast a message in Wire
 ```
