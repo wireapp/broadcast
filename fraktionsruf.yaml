@@ -1,0 +1,43 @@
+server:
+  rootPath: /fraktionsruf/*
+  requestLog:
+    appenders: []
+
+logging:
+  level: INFO
+  loggers:
+    "com.wire.bots.logger": INFO
+
+swagger:
+  resourcePackage: com.wire.bots.fraktionsruf.resources
+  uriPrefix: /fraktionsruf
+  schemes:
+    - http
+    - https
+
+auth: ${FDP_SERVICE_TOKEN}
+
+secret: ${FDP_SECRET}
+
+db:
+  driver: postgresql
+  host: ${POSTGRES_HOST}
+  user: postgres
+  password: ${POSTGRES_PASSWORD}
+  port: 5432
+
+database:
+  driverClass: org.postgresql.Driver
+  user: postgres
+  password: ${POSTGRES_PASSWORD}
+  url: ${POSTGRES_URL}
+  properties:
+    charSet: UTF-8
+  maxWaitForConnection: 1s
+  validationQuery: "/* MyService Health Check */ SELECT 1"
+  minSize: 8
+  maxSize: 32
+  checkConnectionWhileIdle: false
+  evictionInterval: 10s
+  minIdleTime: 1 minute
+

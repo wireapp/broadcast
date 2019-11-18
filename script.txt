@@ -1,0 +1,4 @@
+CREATE TABLE Bots (
+ bot_id UUID PRIMARY KEY
+);
+
