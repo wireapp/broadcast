@@ -1,5 +1,5 @@
 # Fraktionsruf
-[![Build Status](https://travis-ci.org/wireapp/fraktionsruf.svg?branch=master)](https://travis-ci.org/wireapp/fraktionsruf)
+[![Build Status](https://travis-ci.com/wireapp/fraktionsruf.svg?branch=master)](https://travis-ci.com/wireapp/fraktionsruf)
 
 This is broadcast bot for Wire.
 
