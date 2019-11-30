@@ -1,10 +1,10 @@
 FROM dejankovacevic/bots.runtime:2.10.3
 
-COPY target/fraktionsruf.jar   /opt/fraktionsruf/fraktionsruf.jar
-COPY fraktionsruf.yaml         /etc/fraktionsruf/fraktionsruf.yaml
+COPY target/broadcast.jar   /opt/fraktionsruf/
+COPY broadcast.yaml         /etc/fraktionsruf/
 
-WORKDIR /opt/fraktionsruf
+WORKDIR /opt/broadcast
 
 EXPOSE  8080
 
-CMD ["sh", "-c","/usr/bin/java -Djava.library.path=/opt/wire/lib -jar fraktionsruf.jar server /etc/fraktionsruf/fraktionsruf.yaml"]
+CMD ["sh", "-c","/usr/bin/java -jar broadcast.jar server /etc/broadcast/broadcast.yaml"]

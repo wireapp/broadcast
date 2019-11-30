@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>fraktionsruf</artifactId>
+    <artifactId>broadcast</artifactId>
     <groupId>com.wire.bots</groupId>
     <version>0.1.0</version>
 
@@ -65,7 +65,7 @@
                 <artifactId>maven-shade-plugin</artifactId>
                 <version>2.4.3</version>
                 <configuration>
-                    <finalName>fraktionsruf</finalName>
+                    <finalName>broadcast</finalName>
                     <createDependencyReducedPom>false</createDependencyReducedPom>
                     <filters>
                         <filter>
@@ -90,7 +90,7 @@
                                         implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
                                 <transformer
                                         implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>com.wire.bots.fraktionsruf.Service</mainClass>
+                                    <mainClass>com.wire.bots.broadcast.Service</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>

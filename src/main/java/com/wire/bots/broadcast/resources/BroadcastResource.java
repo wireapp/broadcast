@@ -15,12 +15,12 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see http://www.gnu.org/licenses/.
 //
-package com.wire.bots.fraktionsruf.resources;
+package com.wire.bots.broadcast.resources;
 
 import com.codahale.metrics.annotation.Timed;
-import com.wire.bots.fraktionsruf.model.Simple;
-import com.wire.bots.fraktionsruf.Broadcaster;
-import com.wire.bots.fraktionsruf.Service;
+import com.wire.bots.broadcast.Broadcaster;
+import com.wire.bots.broadcast.Service;
+import com.wire.bots.broadcast.model.Simple;
 import com.wire.bots.sdk.ClientRepo;
 import com.wire.bots.sdk.tools.Logger;
 import com.wire.bots.sdk.tools.Util;

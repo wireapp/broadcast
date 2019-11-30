@@ -16,12 +16,12 @@
 // along with this program. If not, see http://www.gnu.org/licenses/.
 //
 
-package com.wire.bots.fraktionsruf.model;
+package com.wire.bots.broadcast.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.dropwizard.db.DataSourceFactory;
 import com.wire.bots.sdk.Configuration;
+import io.dropwizard.db.DataSourceFactory;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;

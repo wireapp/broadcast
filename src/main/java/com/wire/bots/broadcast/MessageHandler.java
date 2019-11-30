@@ -1,4 +1,4 @@
-package com.wire.bots.fraktionsruf;
+package com.wire.bots.broadcast;
 
 import com.wire.bots.sdk.MessageHandlerBase;
 import com.wire.bots.sdk.WireClient;

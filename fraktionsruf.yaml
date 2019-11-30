@@ -1,5 +1,5 @@
 server:
-  rootPath: /fraktionsruf/*
+  rootPath: /broadcast/*
   requestLog:
     appenders: []
 
@@ -9,8 +9,8 @@ logging:
     "com.wire.bots.logger": INFO
 
 swagger:
-  resourcePackage: com.wire.bots.fraktionsruf.resources
-  uriPrefix: /fraktionsruf
+  resourcePackage: com.wire.bots.broadcast.resources
+  uriPrefix: /broadcast
   schemes:
     - http
     - https

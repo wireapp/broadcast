@@ -1,4 +1,4 @@
-package com.wire.bots.fraktionsruf.model;
+package com.wire.bots.broadcast.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;

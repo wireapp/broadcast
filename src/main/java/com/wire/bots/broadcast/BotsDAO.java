@@ -1,4 +1,4 @@
-package com.wire.bots.fraktionsruf;
+package com.wire.bots.broadcast;
 
 import com.wire.bots.sdk.tools.Logger;
 import org.skife.jdbi.v2.StatementContext;

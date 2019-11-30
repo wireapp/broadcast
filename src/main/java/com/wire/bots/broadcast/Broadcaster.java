@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see http://www.gnu.org/licenses/.
 //
-package com.wire.bots.fraktionsruf;
+package com.wire.bots.broadcast;
 
 import com.wire.bots.sdk.ClientRepo;
 import com.wire.bots.sdk.WireClient;

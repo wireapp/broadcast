@@ -15,10 +15,10 @@
 // along with this program. If not, see http://www.gnu.org/licenses/.
 //
 
-package com.wire.bots.fraktionsruf;
+package com.wire.bots.broadcast;
 
-import com.wire.bots.fraktionsruf.model.Config;
-import com.wire.bots.fraktionsruf.resources.BroadcastResource;
+import com.wire.bots.broadcast.model.Config;
+import com.wire.bots.broadcast.resources.BroadcastResource;
 import com.wire.bots.sdk.MessageHandlerBase;
 import com.wire.bots.sdk.Server;
 import io.dropwizard.jdbi.DBIFactory;
