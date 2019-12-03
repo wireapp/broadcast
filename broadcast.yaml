@@ -19,15 +19,15 @@ secret: ${APP_SECRET:-}
 
 db:
   driver: postgresql
-  host: ${POSTGRES_HOST:-}
+  url: ${POSTGRES_URL:-}
+  user: ${POSTGRES_USER:-}
   password: ${POSTGRES_PASSWORD:-}
-  port: 5432
-  database: ${DATABASE_NAME:-}
 
 database:
   driverClass: org.postgresql.Driver
-  password: ${POSTGRES_PASSWORD:-}
   url: ${POSTGRES_URL:-}
+  user: ${POSTGRES_USER:-}
+  password: ${POSTGRES_PASSWORD:-}
   properties:
     charSet: UTF-8
   maxWaitForConnection: 1s

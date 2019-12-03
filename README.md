@@ -55,10 +55,9 @@ CREATE TABLE states (
 ```
 APP_SERVICE_TOKEN    # obtained from Wire
 APP_SECRET           # your application secret - some 24 random alpha numeric chars
-POSTGRES_HOST        # host where your postgres server runs
-POSTGRES_URL         # Postgres URL. format: jdbc:postgresql://<HOST>:<PORT>/<DB_NAME>
+POSTGRES_URL         # Postgres URL. format: jdbc:postgresql://<HOST>:<PORT>/<DB_NAME>  
+POSTGRES_USER        # Postgres user
 POSTGRES_PASSWORD    # Postgres user's password
-DATABASE_NAME        # Probably something like Broadcast
 ```
 
 ## Build docker image from source code
@@ -68,9 +67,8 @@ docker build -t $DOCKER_USERNAME/broadcast:latest .
 ```
 docker run -e APP_SERVICE_TOKEN='foo' \
 -e APP_SECRET='bar' \
--e POSTGRES_HOST='127.0.0.1' \
--e POSTGRES_URL='jdbc:postgresql://127.0.0.1/broadcast' \
--e DATABASE_NAME='broadcast' \
+-e POSTGRES_URL='jdbc:postgresql://docker.for.mac.localhost/broadcast' \
+-e POSTGRES_USER='postgres' \
 -p 8080:80 $DOCKER_USERNAME/broadcast:latest
 ```
 
