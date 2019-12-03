@@ -5,13 +5,11 @@ This is broadcast bot for Wire.
 
 ## Public endpoints:
 ```
-    POST    /broadcast/bots                     # must be visible to Wire BE
-    POST    /broadcast/bots/{bot}/messages      # must be visible to Wire BE
-    POST    /broadcast/broadcast                # must be visible to Your Broadcast Console
-    GET     /broadcast/status                   # use this endpoint as liveness probe
-    GET     /broadcast/bots/status
-    GET     /broadcast/swagger
-    GET     /broadcast/swagger.{type:json|yaml}
+    POST    /bots                     # must be visible to Wire BE
+    POST    /bots/{bot}/messages      # must be visible to Wire BE
+    POST    /broadcast                # must be visible to Your Broadcast Console
+    GET     /status                   # use this endpoint as liveness probe
+    GET     /swagger                  # API documentation
 ```
 
 ## Database scripts:
@@ -57,27 +55,28 @@ CREATE TABLE states (
 ```
 APP_SERVICE_TOKEN    # obtained from Wire
 APP_SECRET           # your application secret - some 24 random alpha numeric chars
-POSTGRES_HOST
-POSTGRES_URL
-POSTGRES_PASSWORD
-DATABASE_NAME
+POSTGRES_HOST        # host where your postgres server runs
+POSTGRES_URL         # Postgres URL. format: jdbc:postgresql://<HOST>:<PORT>/<DB_NAME>
+POSTGRES_PASSWORD    # Postgres user's password
+DATABASE_NAME        # Probably something like Broadcast
 ```
+
+## Build docker image from source code
+docker build -t $DOCKER_USERNAME/broadcast:latest .
 
 ## Example of Docker run command
 ```
-sudo docker run -e APP_SERVICE_TOKEN='foo' \
+docker run -e APP_SERVICE_TOKEN='foo' \
 -e APP_SECRET='bar' \
--e POSTGRES_HOST='elephant-postgresql.prod.svc.cluster.local' \
--e POSTGRES_URL='jdbc:postgresql://elephant-postgresql.prod.svc.cluster.local:5432/fraktionsruf' \
--e POSTGRES_PASSWORD='foobar' \
--e DATABASE_NAME='broadcast'
--p 8080:80 \
---name broadcast_container dejankovacevic/broadcast:latest
+-e POSTGRES_HOST='127.0.0.1' \
+-e POSTGRES_URL='jdbc:postgresql://127.0.0.1/broadcast' \
+-e DATABASE_NAME='broadcast' \
+-p 8080:80 $DOCKER_USERNAME/broadcast:latest
 ```
 
 ## How to broadcast a message in Wire
 ```
-curl 'localhost:8080/broadcast/broadcast' \
+curl 'localhost:8080/broadcast' \
     -H "Authorization:Bearer $APP_SECRET" \
     -H "Content-Type:Application/JSON" \
     -d '{ "message" : "This is just a test" }'

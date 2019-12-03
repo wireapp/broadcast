@@ -1,7 +1,6 @@
 server:
-  rootPath: /broadcast/*
   requestLog:
-    appenders: []
+#    appenders: []
 
 logging:
   level: INFO
@@ -10,28 +9,25 @@ logging:
 
 swagger:
   resourcePackage: com.wire.bots.broadcast.resources
-  uriPrefix: /broadcast
   schemes:
     - http
     - https
 
-auth: ${APP_SERVICE_TOKEN}
+auth: ${APP_SERVICE_TOKEN:-}
 
-secret: ${APP_SECRET}
+secret: ${APP_SECRET:-}
 
 db:
   driver: postgresql
-  host: ${POSTGRES_HOST}
-  user: postgres
-  password: ${POSTGRES_PASSWORD}
+  host: ${POSTGRES_HOST:-}
+  password: ${POSTGRES_PASSWORD:-}
   port: 5432
-  database: ${DATABASE_NAME}
+  database: ${DATABASE_NAME:-}
 
 database:
   driverClass: org.postgresql.Driver
-  user: postgres
-  password: ${POSTGRES_PASSWORD}
-  url: ${POSTGRES_URL}
+  password: ${POSTGRES_PASSWORD:-}
+  url: ${POSTGRES_URL:-}
   properties:
     charSet: UTF-8
   maxWaitForConnection: 1s
