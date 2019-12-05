@@ -1,6 +1,11 @@
 server:
+  rootPath: /fdp/*
+
   requestLog:
-#    appenders: []
+    appenders:
+      - type: console
+        filterFactories:
+          - type: healthcheck-filter-factory
 
 logging:
   level: INFO
@@ -9,13 +14,16 @@ logging:
 
 swagger:
   resourcePackage: com.wire.bots.broadcast.resources
+  uriPrefix: /fdp
   schemes:
     - http
     - https
 
-auth: ${APP_SERVICE_TOKEN:-}
+auth: ${APP_SERVICE_TOKEN}
 
-secret: ${APP_SECRET:-}
+tokens:
+  confluence: ${CONFLUENCE_TOKEN:-}
+  fraktionruf: ${FRAKTIONRUF_TOKEN:-}
 
 db:
   driver: postgresql

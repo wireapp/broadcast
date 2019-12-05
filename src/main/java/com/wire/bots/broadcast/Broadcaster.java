@@ -25,10 +25,12 @@ import org.skife.jdbi.v2.DBI;
 import java.util.UUID;
 
 public class Broadcaster {
+    private final String authToken;
     private final ClientRepo repo;
     private final DBI jdbi;
 
-    public Broadcaster(ClientRepo repo, DBI jdbi) {
+    public Broadcaster(String authToken, ClientRepo repo, DBI jdbi) {
+        this.authToken = authToken;
         this.repo = repo;
         this.jdbi = jdbi;
     }
@@ -37,7 +39,7 @@ public class Broadcaster {
         BotsDAO botsDAO = jdbi.onDemand(BotsDAO.class);
 
         int count = 0;
-        for (UUID botId : botsDAO.getBots()) {
+        for (UUID botId : botsDAO.getBots(authToken)) {
             try {
                 WireClient client = repo.getClient(botId);
                 client.sendText(text);

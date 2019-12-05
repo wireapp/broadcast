@@ -28,14 +28,23 @@ import javax.validation.constraints.NotNull;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Config extends Configuration {
-
     @Valid
     @NotNull
     @JsonProperty
     public DataSourceFactory database = new DataSourceFactory();
 
-    @NotNull
     @JsonProperty
-    public String secret;
+    @NotNull
+    public Tokens tokens;
+
+    public static class Tokens {
+        @NotNull
+        @JsonProperty
+        public String confluence;
+        @NotNull
+        @JsonProperty
+        public String fraktionruf;
+
+    }
 
 }

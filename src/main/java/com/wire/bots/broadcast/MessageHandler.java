@@ -17,11 +17,10 @@ public class MessageHandler extends MessageHandlerBase {
     }
 
     @Override
-    public boolean onNewBot(NewBot newBot) {
+    public boolean onNewBot(NewBot newBot, String serviceAuth) {
         BotsDAO botsDAO = jdbi.onDemand(BotsDAO.class);
-        if (1 == botsDAO.insert(newBot.id))
-            Logger.info("onNewBot. New subscriber, bot: %s, user: %s", newBot.id, newBot.origin.id);
-
+        if (1 == botsDAO.insert(newBot.id, serviceAuth))
+            Logger.info("onNewBot (%s). New subscriber, bot: %s, user: %s", serviceAuth, newBot.id, newBot.origin.id);
         return true;
     }
 

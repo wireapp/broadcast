@@ -18,10 +18,11 @@ public interface BotsDAO {
 
     @SqlQuery("SELECT bot_id AS uuid FROM Bots")
     @RegisterMapper(_Mapper.class)
-    List<UUID> getBots();
+    List<UUID> getBots(@Bind("serviceAuth") String serviceAuth);
 
-    @SqlUpdate("INSERT INTO Bots(bot_id) VALUES (:botId)")
-    int insert(@Bind("botId") UUID botId);
+    @SqlUpdate("INSERT INTO Bots(bot_id, service_auth) VALUES (:botId, :serviceAuth)")
+    int insert(@Bind("botId") UUID botId,
+               @Bind("serviceAuth") String serviceAuth);
 
     @SqlUpdate("DELETE FROM Bots WHERE bot_id = :botId")
     int delete(@Bind("botId") UUID botId);

@@ -37,33 +37,34 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 @Api
-@Path("/broadcast")
+@Path("/confluence")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class BroadcastResource {
+public class ConfluenceResource {
     private final Broadcaster broadcaster;
 
-    public BroadcastResource(ClientRepo repo, DBI jdbi) {
+    public ConfluenceResource(ClientRepo repo, DBI jdbi) {
+
         broadcaster = new Broadcaster(Service.instance.getConfig().tokens.confluence, repo, jdbi);
     }
 
     @POST
     @Timed
-    @ApiOperation(value = "Broadcast message on Wire")
+    @ApiOperation(value = "Confluence webhook")
     @Authorization("Bearer")
     public Response webhook(@ApiParam("Service token Bearer") @HeaderParam(HttpHeaders.AUTHORIZATION) String auth,
                             @ApiParam @NotNull @Valid Simple payload) {
-        try {
 
+        try {
             int broadcast = broadcaster.broadcast(payload.message);
 
-            Logger.info("BroadcastResource: New payload texted in %d convs", broadcast);
+            Logger.info("ConfluenceResource: New payload texted in %d convs", broadcast);
 
             return Response.
                     accepted().
                     build();
         } catch (Exception e) {
-            Logger.error("BroadcastResource: %s", e);
+            Logger.error("ConfluenceResource: %s", e);
             return Response.
                     serverError().
                     build();

@@ -17,8 +17,11 @@
 
 package com.wire.bots.broadcast;
 
+import com.wire.bots.broadcast.filters.AuthenticationFeature;
+import com.wire.bots.broadcast.healthchecks.StatusHealthcheck;
 import com.wire.bots.broadcast.model.Config;
 import com.wire.bots.broadcast.resources.BroadcastResource;
+import com.wire.bots.broadcast.resources.ConfluenceResource;
 import com.wire.bots.sdk.MessageHandlerBase;
 import com.wire.bots.sdk.Server;
 import io.dropwizard.jdbi.DBIFactory;
@@ -54,6 +57,14 @@ public class Service extends Server<Config> {
 
     @Override
     protected void onRun(Config config, Environment env) {
-        addResource(new BroadcastResource(repo, jdbi), env);
+        addResource(new StatusHealthcheck());
+
+        addResource(new BroadcastResource(repo, jdbi));
+        addResource(new ConfluenceResource(repo, jdbi));
+    }
+
+    @Override
+    protected void registerFeatures() {
+        environment.jersey().register(AuthenticationFeature.class);
     }
 }
