@@ -3,13 +3,14 @@
 
 This is broadcast bot for Wire.
 
-## Public endpoints:
+## Exposed endpoints on 8080 port:
 ```
-    POST    /bots                     # must be visible to Wire BE
-    POST    /bots/{bot}/messages      # must be visible to Wire BE
-    POST    /broadcast                # must be visible to Your Broadcast Console
-    GET     /status                   # use this endpoint as liveness probe
-    GET     /swagger                  # API documentation
+    POST    /fdp/bots                     # must be visible to Wire BE
+    POST    /fdp/bots/{bot}/messages      # must be visible to Wire BE
+    POST    /fdp/broadcast                # must be visible to Your Broadcast Console
+    POST    /fdp/confluence               # must be visible to Script Runner
+    GET     /fdp/healthcheck              # use this endpoint as liveness probe
+    GET     /fdp/swagger                  # API documentation
 ```
 
 ## Database scripts:
@@ -17,7 +18,8 @@ This is broadcast bot for Wire.
 CREATE DATABASE $DATABASE_NAME;
 
 CREATE TABLE Bots (
-    bot_id UUID PRIMARY KEY
+    bot_id UUID PRIMARY KEY,
+    service_auth VARCHAR NOT NULL
 );
 
 CREATE TABLE sessions (
@@ -53,8 +55,8 @@ CREATE TABLE states (
 
 ## Environment variables:
 ```
-APP_SERVICE_TOKEN    # obtained from Wire
-APP_SECRET           # your application secret - some 24 random alpha numeric chars
+$FRAKTIONRUF_TOKEN   # Obtained from Wire
+$CONFLUENCE_TOKEN    # Obtained from Wire
 POSTGRES_URL         # Postgres URL. format: jdbc:postgresql://<HOST>:<PORT>/<DB_NAME>  
 POSTGRES_USER        # Postgres user
 POSTGRES_PASSWORD    # Postgres user's password
@@ -69,13 +71,22 @@ docker run -e APP_SERVICE_TOKEN='foo' \
 -e APP_SECRET='bar' \
 -e POSTGRES_URL='jdbc:postgresql://docker.for.mac.localhost/broadcast' \
 -e POSTGRES_USER='postgres' \
--p 8080:80 $DOCKER_USERNAME/broadcast:latest
+-p 80:8080 \
+--name broadcast --rm $DOCKER_USERNAME/broadcast:latest
 ```
 
-## How to broadcast a message in Wire
+## How to broadcast a message in Wire using curl
 ```
-curl 'localhost:8080/broadcast' \
-    -H "Authorization:Bearer $APP_SECRET" \
+curl 'localhost:8080/fdp/broadcast' \
+    -H "Authorization:Bearer $FRAKTIONRUF_TOKEN" \
     -H "Content-Type:Application/JSON" \
-    -d '{ "message" : "This is just a test" }'
+    -d '{ "message" : "Hello from Fraktionruf" }'
+```
+
+## Invoke Confluence webhook
+```
+curl 'localhost:8080/fdp/confluence' \
+    -H "Authorization:Bearer $CONFLUENCE_TOKEN" \
+    -H "Content-Type:Application/JSON" \
+    -d '{ "message" : "Hello from Confluence" }'
 ```
