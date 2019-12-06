@@ -3,14 +3,17 @@
 
 This is broadcast bot for Wire.
 
+## API Documentation
+https://services.wire.com/fdp/swagger#/default
+
 ## Exposed endpoints on 8080 port:
 ```
-    POST    /fdp/bots                     # must be visible to Wire BE
-    POST    /fdp/bots/{bot}/messages      # must be visible to Wire BE
-    POST    /fdp/broadcast                # must be visible to Your Broadcast Console
-    POST    /fdp/confluence               # must be visible to Script Runner
-    GET     /fdp/healthcheck              # use this endpoint as liveness probe
-    GET     /fdp/swagger                  # API documentation
+    POST    /bots                     # must be visible to Wire BE
+    POST    /bots/{bot}/messages      # must be visible to Wire BE
+    POST    /broadcast                # must be visible to Your Broadcast Console
+    POST    /confluence               # must be visible to Script Runner
+    GET     /healthcheck              # use this endpoint as liveness probe
+    GET     /swagger                  # API documentation
 ```
 
 ## Database scripts:
@@ -67,8 +70,9 @@ docker build -t $DOCKER_USERNAME/broadcast:latest .
 
 ## Example of Docker run command
 ```
-docker run -e APP_SERVICE_TOKEN='foo' \
--e APP_SECRET='bar' \
+docker run \ 
+-e FRAKTIONRUF_TOKEN='foo' \  
+-e CONFLUENCE_TOKEN='bar' \  
 -e POSTGRES_URL='jdbc:postgresql://docker.for.mac.localhost/broadcast' \
 -e POSTGRES_USER='postgres' \
 -p 80:8080 \
@@ -80,7 +84,7 @@ docker run -e APP_SERVICE_TOKEN='foo' \
 curl 'localhost:8080/fdp/broadcast' \
     -H "Authorization:Bearer $FRAKTIONRUF_TOKEN" \
     -H "Content-Type:Application/JSON" \
-    -d '{ "message" : "Hello from Fraktionruf" }'
+    -d '{ "message" : "Hello from Fra*tionruf" }'
 ```
 
 ## Invoke Confluence webhook
