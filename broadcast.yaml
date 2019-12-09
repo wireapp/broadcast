@@ -19,6 +19,8 @@ swagger:
     - http
     - https
 
+auth: ${APP_SERVICE_TOKEN}
+
 tokens:
   confluence: ${CONFLUENCE_TOKEN:-}
   fraktionruf: ${FRAKTIONRUF_TOKEN:-}

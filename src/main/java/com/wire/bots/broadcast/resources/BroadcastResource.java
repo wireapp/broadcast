@@ -44,7 +44,7 @@ public class BroadcastResource {
     private final Broadcaster broadcaster;
 
     public BroadcastResource(ClientRepo repo, DBI jdbi) {
-        broadcaster = new Broadcaster(Service.instance.getConfig().tokens.confluence, repo, jdbi);
+        broadcaster = new Broadcaster(Service.instance.getConfig().tokens.fraktionruf, repo, jdbi);
     }
 
     @POST

@@ -16,7 +16,7 @@ import java.util.UUID;
 
 public interface BotsDAO {
 
-    @SqlQuery("SELECT bot_id AS uuid FROM Bots")
+    @SqlQuery("SELECT bot_id AS uuid FROM Bots WHERE service_auth = :serviceAuth")
     @RegisterMapper(_Mapper.class)
     List<UUID> getBots(@Bind("serviceAuth") String serviceAuth);
 
