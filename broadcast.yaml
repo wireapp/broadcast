@@ -19,30 +19,14 @@ swagger:
     - http
     - https
 
-auth: ${APP_SERVICE_TOKEN}
-
 tokens:
   confluence: ${CONFLUENCE_TOKEN:-}
   fraktionruf: ${FRAKTIONRUF_TOKEN:-}
 
-db:
-  driver: postgresql
-  url: ${POSTGRES_URL:-}
-  user: ${POSTGRES_USER:-}
-  password: ${POSTGRES_PASSWORD:-}
-
+# File system as default DB. Other drivers supported: redis and postgresql. Primary keys are stored there
 database:
-  driverClass: org.postgresql.Driver
-  url: ${POSTGRES_URL:-}
-  user: ${POSTGRES_USER:-}
-  password: ${POSTGRES_PASSWORD:-}
-  properties:
-    charSet: UTF-8
-  maxWaitForConnection: 1s
-  validationQuery: "/* MyService Health Check */ SELECT 1"
-  minSize: 8
-  maxSize: 32
-  checkConnectionWhileIdle: false
-  evictionInterval: 10s
-  minIdleTime: 1 minute
+  driverClass: ${DB_DRIVER:-org.postgresql.Driver}      # Can be: fs | redis | org.postgresql.Driver (default)
+  url: ${DB_URL:-jdbc:postgresql://localhost/postgres}  # for File System it should be absolute path like: file:///var/echo/data or null
+  user: ${DB_USER:-}
+  password: ${DB_PASSWORD:-}
 

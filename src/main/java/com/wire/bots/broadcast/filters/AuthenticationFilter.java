@@ -1,6 +1,7 @@
 package com.wire.bots.broadcast.filters;
 
 import com.wire.bots.broadcast.Service;
+import com.wire.bots.broadcast.model.Config;
 
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.container.ContainerRequestContext;
@@ -35,8 +36,10 @@ public class AuthenticationFilter implements ContainerRequestFilter {
             throw new WebApplicationException(cause, Response.Status.BAD_REQUEST);
         }
 
-        String confluence = Service.instance.getConfig().tokens.confluence;
-        String fraktionruf = Service.instance.getConfig().tokens.fraktionruf;
+        Config config = Service.instance.getConfig();
+
+        String confluence = config.tokens.confluence;
+        String fraktionruf = config.tokens.fraktionruf;
 
         if (!Objects.equals(token, confluence) && !Objects.equals(token, fraktionruf)) {
             throw new WebApplicationException(Response.Status.UNAUTHORIZED);

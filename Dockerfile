@@ -7,8 +7,8 @@ RUN mvn -Dmaven.test.skip=true package
 
 FROM dejankovacevic/bots.runtime:2.10.3
 
-#COPY --from=build-env /app/target/broadcast.jar /opt/broadcast/
-COPY target/broadcast.jar         /opt/broadcast/
+COPY --from=build-env /app/target/broadcast.jar /opt/broadcast/
+#COPY target/broadcast.jar         /opt/broadcast/
 COPY broadcast.yaml               /opt/broadcast/
 
 WORKDIR /opt/broadcast

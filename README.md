@@ -18,64 +18,36 @@ https://services.wire.com/fdp/swagger#/default
 ## Database scripts:
 ```
 CREATE DATABASE $DATABASE_NAME;
-
-CREATE TABLE Bots (
-    bot_id UUID PRIMARY KEY,
-    service_auth VARCHAR NOT NULL
-);
-
-CREATE TABLE sessions (
-    id         varchar NOT NULL,
-    sid        varchar NOT NULL,
-    data       bytea NOT NULL,
-    PRIMARY KEY (id, sid)
-);
-
-CREATE TABLE identities (
-    id         varchar PRIMARY KEY,
-    data       bytea NOT NULL
-);
-
-CREATE TABLE prekeys (
-    id         varchar NOT NULL,
-    kid        integer NOT NULL,
-    data       bytea NOT NULL,
-    PRIMARY KEY (id, kid)
-);
-
-CREATE TABLE states (
-    botId UUID NOT NULL PRIMARY KEY,
-    bot json NOT NULL
-);
 ```
 
 ## Build project
 `mvn package`
 
 ## Run command
-`java server broadcast.yaml`
+`java -jar broadcast.jar server broadcast.yaml`
 
 ## Environment variables:
 ```
-$FRAKTIONRUF_TOKEN   # Obtained from Wire
-$CONFLUENCE_TOKEN    # Obtained from Wire
-POSTGRES_URL         # Postgres URL. format: jdbc:postgresql://<HOST>:<PORT>/<DB_NAME>  
-POSTGRES_USER        # Postgres user
-POSTGRES_PASSWORD    # Postgres user's password
+FRAKTIONRUF_TOKEN   # Obtained from Wire
+CONFLUENCE_TOKEN    # Obtained from Wire
+DB_URL         # Postgres URL. format: jdbc:postgresql://<HOST>:<PORT>/<DB_NAME>  
+DB_USER        # Postgres user
+DB_PASSWORD    # Postgres user's password  
 ```
 
 ## Build docker image from source code
-docker build -t $DOCKER_USERNAME/broadcast:latest .
+docker build -t $DOCKER_USERNAME/fraktionsruf:0.1.1 .
 
 ## Example of Docker run command
 ```
 docker run \ 
 -e FRAKTIONRUF_TOKEN='foo' \  
 -e CONFLUENCE_TOKEN='bar' \  
--e POSTGRES_URL='jdbc:postgresql://docker.for.mac.localhost/broadcast' \
--e POSTGRES_USER='postgres' \
+-e DB_URL='jdbc:postgresql://docker.for.mac.localhost/broadcast' \
+-e DB_USER='postgres' \ 
+-e DB_PASSWORD='secret' \
 -p 80:8080 \
---name broadcast --rm $DOCKER_USERNAME/broadcast:latest
+--name broadcast --rm $DOCKER_USERNAME/fraktionsruf:0.1.1
 ```
 
 ## How to broadcast a message in Wire using curl
