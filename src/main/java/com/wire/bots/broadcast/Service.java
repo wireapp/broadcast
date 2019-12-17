@@ -24,11 +24,9 @@ import com.wire.bots.broadcast.resources.BroadcastResource;
 import com.wire.bots.broadcast.resources.ConfluenceResource;
 import com.wire.bots.sdk.MessageHandlerBase;
 import com.wire.bots.sdk.Server;
-import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.jdbi.DBIFactory;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
-import org.flywaydb.core.Flyway;
 import org.skife.jdbi.v2.DBI;
 
 public class Service extends Server<Config> {
@@ -49,17 +47,7 @@ public class Service extends Server<Config> {
 
     @Override
     protected void initialize(Config config, Environment env) {
-        DataSourceFactory database = config.dataSourceFactory;
-
-        // Migrate DB if needed
-        Flyway flyway = Flyway
-                .configure()
-                .dataSource(database.getUrl(), database.getUser(), database.getPassword())
-                .baselineOnMigrate(true)
-                .load();
-        flyway.migrate();
-
-        this.jdbi = new DBIFactory().build(environment, database, "fraktionsrufDB");
+        this.jdbi = new DBIFactory().build(environment, config.dataSourceFactory, "fraktionsrufDB");
     }
 
     @Override

@@ -26,7 +26,7 @@ tokens:
 # File system as default DB. Other drivers supported: redis and postgresql. Primary keys are stored there
 database:
   driverClass: ${DB_DRIVER:-org.postgresql.Driver}      # Can be: fs | redis | org.postgresql.Driver (default)
-  url: ${DB_URL:-jdbc:postgresql://localhost/postgres}  # for File System it should be absolute path like: file:///var/echo/data or null
+  url: ${DB_URL:-jdbc:postgresql://localhost/fdp}  # for File System it should be absolute path like: file:///var/echo/data or null
   user: ${DB_USER:-}
   password: ${DB_PASSWORD:-}
 
