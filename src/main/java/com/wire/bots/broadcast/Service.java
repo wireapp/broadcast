@@ -18,7 +18,6 @@
 package com.wire.bots.broadcast;
 
 import com.wire.bots.broadcast.filters.AuthenticationFeature;
-import com.wire.bots.broadcast.healthchecks.StatusHealthcheck;
 import com.wire.bots.broadcast.model.Config;
 import com.wire.bots.broadcast.resources.BroadcastResource;
 import com.wire.bots.broadcast.resources.ConfluenceResource;
@@ -57,8 +56,6 @@ public class Service extends Server<Config> {
 
     @Override
     protected void onRun(Config config, Environment env) {
-        addResource(new StatusHealthcheck());
-
         addResource(new BroadcastResource(repo, jdbi));
         addResource(new ConfluenceResource(repo, jdbi));
     }
