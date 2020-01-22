@@ -23,14 +23,11 @@ import com.wire.bots.broadcast.resources.BroadcastResource;
 import com.wire.bots.broadcast.resources.ConfluenceResource;
 import com.wire.bots.sdk.MessageHandlerBase;
 import com.wire.bots.sdk.Server;
-import io.dropwizard.jdbi.DBIFactory;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
-import org.skife.jdbi.v2.DBI;
 
 public class Service extends Server<Config> {
     public static Service instance;
-    private DBI jdbi;
 
     public static void main(String[] args) throws Exception {
         Service instance = new Service();
@@ -42,11 +39,6 @@ public class Service extends Server<Config> {
         super.initialize(bootstrap);
 
         instance = (Service) bootstrap.getApplication();
-    }
-
-    @Override
-    protected void initialize(Config config, Environment env) {
-        this.jdbi = new DBIFactory().build(environment, config.dataSourceFactory, "fraktionsrufDB");
     }
 
     @Override
