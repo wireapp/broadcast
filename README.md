@@ -1,5 +1,4 @@
 # Broadcast
-[![Build Status](https://travis-ci.com/wireapp/broadcast.svg?branch=master)](https://travis-ci.com/wireapp/broadcast)
 This is broadcast bot for Wire.
 
 ## API Documentation

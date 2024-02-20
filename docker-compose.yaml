@@ -1,0 +1,35 @@
+version: '3.8'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: broadcast:latest
+    ports:
+      - 8080:8080
+      - 8081:8081
+    environment:
+      - DB_URL=jdbc:postgresql://db:5432/broadcast
+      - DB_USER=broadcast-user
+      - DB_PASSWORD=db-s3cret!
+      - CONFLUENCE_TOKEN=this_is_some_secret
+      - FRAKTIONRUF_TOKEN=this_is_some_other_secret
+      - WIRE_API_HOST=https://prod-nginz-https.wire.com/v4
+      - SERVICE_TOKEN=service-token-secret
+    depends_on:
+      - db
+
+  db:
+    image: postgres:13.1
+    # just for local development
+    environment:
+      - POSTGRES_USER=broadcast-user
+      - POSTGRES_PASSWORD=db-s3cret!
+      - POSTGRES_DB=broadcast
+    ports:
+      - 5432:5432
+    volumes:
+      - broadcast-bot-db:/var/lib/postgresql/data/
+
+volumes:
+  broadcast-bot-db:

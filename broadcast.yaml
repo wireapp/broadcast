@@ -1,19 +1,20 @@
 server:
   requestLog:
     appenders:
-      - type: console
-        filterFactories:
-          - type: status-filter-factory
+      - type: ${APPENDER_TYPE:-console}
 
 logging:
   level: INFO
+  appenders:
+    - type: ${APPENDER_TYPE:-console}
   loggers:
-    "com.wire.bots.logger": INFO
+    "org.reflections.Reflections": ERROR
+    "com.wire.bots.logger": ${LOG_LEVEL:-INFO}
 
 jerseyClient:
   timeout: 20s
-  connectionTimeout: 4s
-  connectionRequestTimeout: 4s
+  connectionTimeout: 20s
+  connectionRequestTimeout: 20s
   keepAlive: 0ms
   retries: 3
   userAgent: fdp
@@ -26,6 +27,8 @@ jerseyClient:
 tokens:
   confluence: ${CONFLUENCE_TOKEN:-}
   fraktionruf: ${FRAKTIONRUF_TOKEN:-}
+
+token: ${SERVICE_TOKEN:-}
 
 # File system as default DB. Other drivers supported: redis and postgresql. Primary keys are stored there
 database:

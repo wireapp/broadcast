@@ -1,18 +1,19 @@
 package com.wire.bots.broadcast;
 
-import com.wire.bots.sdk.MessageHandlerBase;
-import com.wire.bots.sdk.WireClient;
-import com.wire.bots.sdk.server.model.NewBot;
-import com.wire.bots.sdk.server.model.SystemMessage;
-import com.wire.bots.sdk.tools.Logger;
-import org.skife.jdbi.v2.DBI;
+import com.wire.xenon.MessageHandlerBase;
+import com.wire.xenon.WireClient;
+import com.wire.xenon.assets.MessageText;
+import com.wire.xenon.backend.models.NewBot;
+import com.wire.xenon.backend.models.SystemMessage;
+import com.wire.xenon.tools.Logger;
+import org.jdbi.v3.core.Jdbi;
 
 import java.util.UUID;
 
 public class MessageHandler extends MessageHandlerBase {
-    private final DBI jdbi;
+    private final Jdbi jdbi;
 
-    MessageHandler(DBI jdbi) {
+    MessageHandler(Jdbi jdbi) {
         this.jdbi = jdbi;
     }
 
@@ -28,7 +29,7 @@ public class MessageHandler extends MessageHandlerBase {
     public void onNewConversation(WireClient client, SystemMessage message) {
         UUID botId = client.getId();
         try {
-            client.sendText("Hello");
+            client.send(new MessageText("Hello"));
         } catch (Exception e) {
             Logger.error("onNewConversation: %s %s", botId, e);
         }

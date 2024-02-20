@@ -16,20 +16,21 @@
 //
 package com.wire.bots.broadcast;
 
-import com.wire.bots.sdk.ClientRepo;
-import com.wire.bots.sdk.WireClient;
-import com.wire.bots.sdk.exceptions.MissingStateException;
-import com.wire.bots.sdk.tools.Logger;
-import org.skife.jdbi.v2.DBI;
+import com.wire.lithium.ClientRepo;
+import com.wire.xenon.WireClient;
+import com.wire.xenon.assets.MessageText;
+import com.wire.xenon.exceptions.MissingStateException;
+import com.wire.xenon.tools.Logger;
+import org.jdbi.v3.core.Jdbi;
 
 import java.util.UUID;
 
 public class Broadcaster {
     private final String authToken;
     private final ClientRepo repo;
-    private final DBI jdbi;
+    private final Jdbi jdbi;
 
-    public Broadcaster(String authToken, ClientRepo repo, DBI jdbi) {
+    public Broadcaster(String authToken, ClientRepo repo, Jdbi jdbi) {
         this.authToken = authToken;
         this.repo = repo;
         this.jdbi = jdbi;
@@ -42,7 +43,7 @@ public class Broadcaster {
         for (UUID botId : botsDAO.getBots(authToken)) {
             try {
                 WireClient client = repo.getClient(botId);
-                client.sendText(text);
+                client.send(new MessageText(text));
                 count++;
             } catch (MissingStateException e) {
                 Logger.warning("Bot previously deleted. Bot: %s", botId);

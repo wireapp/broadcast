@@ -21,20 +21,20 @@ import com.codahale.metrics.annotation.Timed;
 import com.wire.bots.broadcast.Broadcaster;
 import com.wire.bots.broadcast.Service;
 import com.wire.bots.broadcast.model.Simple;
-import com.wire.bots.sdk.ClientRepo;
-import com.wire.bots.sdk.tools.Logger;
+import com.wire.lithium.ClientRepo;
+import com.wire.xenon.tools.Logger;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.Authorization;
-import org.skife.jdbi.v2.DBI;
+import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.HttpHeaders;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import javax.ws.rs.*;
-import javax.ws.rs.core.HttpHeaders;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import org.jdbi.v3.core.Jdbi;
 
 @Api
 @Path("/confluence")
@@ -43,7 +43,7 @@ import javax.ws.rs.core.Response;
 public class ConfluenceResource {
     private final Broadcaster broadcaster;
 
-    public ConfluenceResource(ClientRepo repo, DBI jdbi) {
+    public ConfluenceResource(ClientRepo repo, Jdbi jdbi) {
 
         broadcaster = new Broadcaster(Service.instance.getConfig().tokens.confluence, repo, jdbi);
     }

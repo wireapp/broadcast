@@ -1,18 +1,18 @@
-FROM docker.io/maven AS build-env
+FROM maven:3-openjdk-17 AS build
 WORKDIR /app
 COPY pom.xml ./
 RUN mvn verify --fail-never
 COPY . ./
 RUN mvn -Dmaven.test.skip=true package
 
-FROM dejankovacevic/bots.runtime:2.10.3
+FROM wirebot/runtime:1.4.0
 
-COPY --from=build-env /app/target/broadcast.jar /opt/broadcast/
-#COPY target/broadcast.jar         /opt/broadcast/
+COPY --from=build /app/target/broadcast.jar /opt/broadcast/
 COPY broadcast.yaml               /opt/broadcast/
 
 WORKDIR /opt/broadcast
 
 EXPOSE  8080
+EXPOSE  8081
 
-CMD ["sh", "-c", "/usr/bin/java -jar broadcast.jar server broadcast.yaml"]
+ENTRYPOINT ["java", "-jar", "broadcast.jar", "server", "broadcast.yaml"]

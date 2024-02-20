@@ -21,10 +21,10 @@ import com.wire.bots.broadcast.filters.AuthenticationFeature;
 import com.wire.bots.broadcast.model.Config;
 import com.wire.bots.broadcast.resources.BroadcastResource;
 import com.wire.bots.broadcast.resources.ConfluenceResource;
-import com.wire.bots.sdk.MessageHandlerBase;
-import com.wire.bots.sdk.Server;
-import io.dropwizard.setup.Bootstrap;
-import io.dropwizard.setup.Environment;
+import com.wire.lithium.Server;
+import com.wire.xenon.MessageHandlerBase;
+import io.dropwizard.core.setup.Bootstrap;
+import io.dropwizard.core.setup.Environment;
 
 public class Service extends Server<Config> {
     public static Service instance;
